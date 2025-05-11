@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_migrate import Migrate
 from extensions import db
 from models import Batch, Finger, Failure
+from flask_cors import CORS
 
 def create_app():
     app = Flask(__name__)
@@ -10,7 +11,7 @@ def create_app():
 
     db.init_app(app)
     Migrate(app, db)  # Enable Flask-Migrate
-
+    CORS(app)
     # Define routes
     @app.route('/')
     def hello():
