@@ -34,3 +34,13 @@ class Failure(db.Model):
 
     def __repr__(self):
         return f"<Failure {self.phase} {self.failure_type}>"
+    
+class Mold(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    version = db.Column(db.String(50), nullable=False)
+    label = db.Column(db.String(50), nullable=False)
+    size = db.Column(db.String(50), nullable=False)
+    mold_uses = db.Column(db.integer)
+    
+    def __repr__(self):
+        return f"<{self.size} Mold {self.label} used {self.mold_uses} times>"
