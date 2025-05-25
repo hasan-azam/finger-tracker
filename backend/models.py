@@ -40,7 +40,7 @@ class Mold(db.Model):
     version = db.Column(db.String(50), nullable=False)
     label = db.Column(db.String(50), nullable=False)
     size = db.Column(db.String(50), nullable=False)
-    mold_uses = db.Column(db.integer)
+    mold_uses = db.Column(db.Integer)
     
     def __repr__(self):
         return f"<{self.size} Mold {self.label} used {self.mold_uses} times>"
