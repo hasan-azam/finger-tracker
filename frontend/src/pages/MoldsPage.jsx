@@ -4,9 +4,9 @@ import MoldList from '../components/MoldList';
 
 const MoldsPage = () => {
   const [molds, setMolds] = useState([]);
-  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
-  // ✅ useCallback to avoid re-creating the function on every render
+  // useCallback to avoid re-creating the function on every render
   const fetchMolds = useCallback(async () => {
     try {
       const response = await fetch(`${apiUrl}/molds`);
@@ -19,6 +19,7 @@ const MoldsPage = () => {
   }, [apiUrl]);
 
   const handleDelete = async (id) => {
+    console.log('Deleting mold with ID:', id);
     try {
       await fetch(`${apiUrl}/molds/${id}`, { method: 'DELETE' });
       fetchMolds();
@@ -28,6 +29,7 @@ const MoldsPage = () => {
   };
 
   const handleEdit = async (id, updatedMold) => {
+    console.log('Editing mold with ID:', id, 'Data:', updatedMold);
     try {
       await fetch(`${apiUrl}/molds/${id}`, {
         method: 'PUT',

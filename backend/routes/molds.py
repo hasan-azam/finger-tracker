@@ -30,7 +30,7 @@ def handle_molds():
         db.session.commit()
         return jsonify({'message': 'Mold added'}), 201
 
-@molds_bp.route('/molds/<int:id>/', methods=['PUT', 'DELETE'])
+@molds_bp.route('/molds/<int:id>', methods=['PUT', 'DELETE'])
 def handle_single_mold(id):
     mold = Mold.query.get_or_404(id)
 

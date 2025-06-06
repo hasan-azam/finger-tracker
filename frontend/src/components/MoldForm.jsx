@@ -5,7 +5,7 @@ const MoldForm = ({ onMoldAdded }) => {
   const [label, setLabel] = useState('');
   const [size, setSize] = useState('');
   const [moldUses, setMoldUses] = useState('');
-  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ const MoldForm = ({ onMoldAdded }) => {
       await fetch(`${apiUrl}/molds`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ version, label, size, mold_uses: moldUses }),
+        body: JSON.stringify({ version, label, size, mold_uses: Number(moldUses) }),
       });
 
       // Clear form
