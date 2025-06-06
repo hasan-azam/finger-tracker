@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import MoldForm from '../components/MoldForm';
 import MoldList from '../components/MoldList';
+import { useNavigate } from 'react-router-dom';
 
 const MoldsPage = () => {
   const [molds, setMolds] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+
 
   // useCallback to avoid re-creating the function on every render
   const fetchMolds = useCallback(async () => {
@@ -48,6 +51,13 @@ const MoldsPage = () => {
 
   return (
     <div className="p-4">
+      <button
+      className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+      onClick={() => navigate('/')}
+    >
+      Back to Homepage
+    </button>
+
       <h2 className="text-xl font-bold mb-4">Add a New Mold</h2>
       <MoldForm onMoldAdded={fetchMolds} />
       <MoldList molds={molds} onDelete={handleDelete} onEdit={handleEdit} />

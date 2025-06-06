@@ -17,9 +17,9 @@ const MoldForm = ({ onMoldAdded }) => {
       });
 
       // Clear form
-      setVersion('');
+      //setVersion('');
       setLabel('');
-      setSize('');
+     // setSize('');
       setMoldUses('');
 
       if (onMoldAdded) onMoldAdded();
@@ -30,36 +30,53 @@ const MoldForm = ({ onMoldAdded }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <input
-        type="text"
+      <select
         value={version}
         onChange={(e) => setVersion(e.target.value)}
-        placeholder="Version"
-        className="border p-2"
-      />
+        className="border p-2 w-full"
+        required
+      >
+        <option value="" disabled>Select Version</option>
+        <option value="9.0">9.0</option>
+        <option value="9.5">9.5</option>
+      </select>
+
+
+
+      <select
+        value={size}
+        onChange={(e) => setSize(e.target.value)}
+        className="border p-2 w-full"
+        required
+      >
+        <option value="" disabled>Select Size</option>
+        <option value="Small">Small</option>
+        <option value="Large">Large</option>
+        <option value="Thumb">Thumb</option>
+      </select>
+
       <input
         type="text"
         value={label}
         onChange={(e) => setLabel(e.target.value)}
         placeholder="Label"
-        className="border p-2"
+        className="border p-2 w-full"
+        required
       />
-      <input
-        type="text"
-        value={size}
-        onChange={(e) => setSize(e.target.value)}
-        placeholder="Size"
-        className="border p-2"
-      />
+
       <input
         type="number"
         value={moldUses}
         onChange={(e) => setMoldUses(e.target.value)}
         placeholder="Mold Uses"
-        className="border p-2"
+        className="border p-2 w-full"
         min="0"
+        required
       />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2">Add Mold</button>
+
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 w-full">
+        Add Mold
+      </button>
     </form>
   );
 };
