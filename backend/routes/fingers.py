@@ -4,7 +4,7 @@ from extensions import db
 
 fingers_bp = Blueprint('fingers', __name__)
 
-@fingers_bp.route('/finger', methods=['POST'])
+@fingers_bp.route('/fingers', methods=['POST'])
 def create_finger():
     data = request.get_json()
     version = data.get('version')

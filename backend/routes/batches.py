@@ -4,7 +4,7 @@ from extensions import db
 
 batches_bp = Blueprint('batches', __name__)
 
-@batches_bp.route('/batch', methods=['POST'])
+@batches_bp.route('/batches', methods=['POST'])
 def create_batch():
     data = request.get_json()
     batch_number = data.get('batch_number')

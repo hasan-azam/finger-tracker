@@ -4,7 +4,7 @@ from extensions import db
 
 failures_bp = Blueprint('failures', __name__)
 
-@failures_bp.route('/failure', methods=['POST'])
+@failures_bp.route('/failures', methods=['POST'])
 def create_failure():
     data = request.get_json()
     phase = data.get('phase')

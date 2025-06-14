@@ -47,7 +47,7 @@ const MoldsPage = () => {
 
   useEffect(() => {
     fetchMolds();
-  }, [fetchMolds]); // ✅ now safe to include
+  }, [fetchMolds]); 
 
   return (
     <div className="p-4">
