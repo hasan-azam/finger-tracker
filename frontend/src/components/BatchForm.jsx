@@ -47,6 +47,7 @@ const BatchForm = ({ onBatchCreated }) => {
         batch_number: batchName,
         technician_name: technician,
         mmd_version: version,
+        mold_ids: selectedMoldIds,
       }),
     });
 
