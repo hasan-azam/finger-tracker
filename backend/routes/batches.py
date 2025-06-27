@@ -17,7 +17,7 @@ def create_batch():
     batch = Batch(batch_number=batch_number, technician_name=technician_name, mmd_version=mmd_version)
     db.session.add(batch)
     db.session.commit()
-    return jsonify({"message": f"Batch {batch.batch_number} created successfully!"}), 201
+    return jsonify({"message": f"Batch {batch.batch_number} created successfully!", "batch_id": batch.batch_number}), 201
 
 @batches_bp.route('/batches', methods=['GET'])
 def get_batches():
