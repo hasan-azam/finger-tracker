@@ -8,6 +8,14 @@ class Batch(db.Model):
     mmd_version = db.Column(db.String(10), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
+    #Finger quantity fields for legacy batches from paper tracking
+
+    large_sensorized = db.Column(db.Integer, default=0)
+    large_unsensorized = db.Column(db.Integer, default=0)
+    small_sensorized = db.Column(db.Integer, default=0)
+    small_unsensorized = db.Column(db.Integer, default=0)
+    thumb = db.Column(db.Integer, default=0)
+    
     fingers = db.relationship('Finger', backref='batch', lazy=True)
 
     def __repr__(self):

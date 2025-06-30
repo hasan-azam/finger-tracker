@@ -73,7 +73,6 @@ const BatchForm = ({ onBatchCreated }) => {
       const count = quantities[key];
       for (let i = 0; i < count; i++) {
         fingers.push({
-          version,
           type,
           size,
           mold_id: selectedMoldIds[index],

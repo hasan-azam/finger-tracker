@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import Finger
+from models import Finger, Mold
 from extensions import db
 
 fingers_bp = Blueprint('fingers', __name__)
@@ -17,17 +17,23 @@ def create_finger():
 
     created_fingers = []
     for item in data:
-        version = item.get('version')
         finger_type = item.get('type')
         size = item.get('size')
         mold_id = item.get('mold_id')
         batch_id = item.get('batch_id')
 
-        if not all([version, finger_type, size, mold_id, batch_id]):
-            return jsonify({"message": "All fields (version, type, size, mold_id, batch_id) are required for each finger"}), 400
+        if not all([finger_type, size, mold_id, batch_id]):
+            return jsonify({"message": "All fields (type, size, mold_id, batch_id) are required for each finger"}), 400
+
+
+#Queries the molds and lets us know which mold each finger used
+        mold = Mold.query.get(mold_id)
+        if not mold:
+            return jsonify({"message": f"Mold with ID {mold_id} not found"}), 400
+
 
         finger = Finger(
-            version=version,
+            version=mold.version,
             type=finger_type,
             size=size,
             mold_id=mold_id,
