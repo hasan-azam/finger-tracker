@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const BatchForm = ({ onBatchCreated }) => {
-  const [version, setVersion] = useState('1.0');
+  
   const [technician, setTechnician] = useState('');
   const [batchName, setBatchName] = useState('');
   const [quantities, setQuantities] = useState({
@@ -14,6 +14,8 @@ const BatchForm = ({ onBatchCreated }) => {
 
   const [molds, setMolds] = useState([]);
   const [selectedMoldIds, setSelectedMoldIds] = useState([]);
+  const [mmds, setMmds] = useState([]);
+  const [selectedMmdId, setSelectedMmdId] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -26,7 +28,19 @@ const BatchForm = ({ onBatchCreated }) => {
         console.error('Error fetching molds:', err);
       }
     };
+
+    const fetchMmds = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/mmds`);
+        const data = await response.json();
+        setMmds(data);
+      } catch (err) {
+        console.error('Error fetching MMDs:', err);
+      }
+  };
+
     fetchMolds();
+    fetchMmds();
   }, [apiUrl]);
 
   const handleMoldChange = (index, moldId) => {
@@ -46,7 +60,7 @@ const BatchForm = ({ onBatchCreated }) => {
       body: JSON.stringify({
         batch_number: batchName,
         technician_name: technician,
-        mmd_version: version,
+        mmd_id: Number(selectedMmdId),
         mold_ids: selectedMoldIds,
       }),
     });
@@ -94,7 +108,7 @@ const BatchForm = ({ onBatchCreated }) => {
     }
 
     // Reset form
-    setVersion('1.0');
+    setSelectedMmdId('');
     setTechnician('');
     setBatchName('');
     setQuantities({
@@ -167,11 +181,21 @@ const BatchForm = ({ onBatchCreated }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <select value={version} onChange={(e) => setVersion(e.target.value)} className="border p-2">
-        <option value="1">MMD 1</option>
-        <option value="2">MMD 2</option>
-        <option value="3">MMD 3</option>
+      
+      <select
+        value={selectedMmdId}
+        onChange={(e) => setSelectedMmdId(e.target.value)}
+        className="border p-2"
+        required
+      >
+        <option value="">-- Select MMD --</option>
+        {mmds.map((mmd) => (
+          <option key={mmd.id} value={mmd.id}>
+            {mmd.name || `MMD ${mmd.serial_number}`}
+          </option>
+        ))}
       </select>
+
 
       <input
         type="text"

@@ -5,7 +5,7 @@ class Batch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     batch_number = db.Column(db.String(50), nullable=False, unique=True)
     technician_name = db.Column(db.String(50), nullable=False)
-    mmd_version = db.Column(db.String(10), nullable=False)
+    mmd_id = db.Column(db.Integer, db.ForeignKey('mmd.id'), nullable=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     #Finger quantity fields for legacy batches from paper tracking
@@ -52,3 +52,12 @@ class Mold(db.Model):
     
     def __repr__(self):
         return f"<{self.size} Mold {self.label} used {self.mold_uses} times>"
+    
+class MMD(db.Model):
+    __tablename__ = 'mmd'
+    id = db.Column(db.Integer, primary_key=True)
+    serial_number = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+
+    # Relationship: one MMD to many batches
+    batches = db.relationship('Batch', backref='mmd', lazy=True)

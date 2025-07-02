@@ -10,6 +10,7 @@ from routes.molds import molds_bp
 from routes.fingers import fingers_bp
 from routes.batches import batches_bp
 from routes.failures import failures_bp
+from routes.mmds import mmds_bp
 
 
 from dotenv import load_dotenv
@@ -32,6 +33,7 @@ def create_app():
     app.register_blueprint(fingers_bp)
     app.register_blueprint(batches_bp)
     app.register_blueprint(failures_bp)
+    app.register_blueprint(mmds_bp)
 
     # Define routes
     @app.route('/')

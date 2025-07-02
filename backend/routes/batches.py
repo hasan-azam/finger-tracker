@@ -9,17 +9,17 @@ def create_batch():
     data = request.get_json()
     batch_number = data.get('batch_number')
     technician_name = data.get('technician_name')
-    mmd_version = data.get('mmd_version')
+    mmd_id = data.get('mmd_id')
     mold_ids = data.get('mold_ids', [])
 
 
 #Field Validation
-    if not all([batch_number, technician_name, mmd_version]):
+    if not all([batch_number, technician_name, mmd_id]):
         return jsonify({"message": "All fields are required"}), 400
 
 #Create the batch
 
-    batch = Batch(batch_number=batch_number, technician_name=technician_name, mmd_version=mmd_version)
+    batch = Batch(batch_number=batch_number, technician_name=technician_name, mmd_id=mmd_id)
     db.session.add(batch)
     db.session.commit()
 
@@ -44,6 +44,6 @@ def get_batches():
         {
             "id": b.id,
             "batch_number": b.batch_number,
-            "mmd_version": b.mmd_version
+            "mmd_id": b.mmd_id
         } for b in batches
     ])
