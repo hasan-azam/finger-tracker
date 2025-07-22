@@ -153,7 +153,7 @@ const BatchForm = ({ onBatchCreated }) => {
                 value={mold.id}
                 disabled={isSelectedElsewhere}
               >
-                {`${mold.label} (${mold.size}, uses: ${mold.mold_uses})`}
+                {`${mold.label} (${mold.size}, Uses: ${mold.mold_uses})`}
               </option>
             );
           })}

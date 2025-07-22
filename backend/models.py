@@ -15,8 +15,11 @@ class Batch(db.Model):
     small_sensorized = db.Column(db.Integer, default=0)
     small_unsensorized = db.Column(db.Integer, default=0)
     thumb = db.Column(db.Integer, default=0)
+
+    is_historical = db.Column(db.Boolean, default=False)
     
     fingers = db.relationship('Finger', backref='batch', lazy=True)
+    batch_failures = db.relationship('BatchFailure', backref='batch', lazy=True)
 
     def __repr__(self):
         return f"<Batch {self.batch_number}>"
@@ -43,6 +46,16 @@ class Failure(db.Model):
     def __repr__(self):
         return f"<Failure {self.phase} {self.failure_type}>"
     
+#Used to track historical failures from pen and paper, since they're associated with batches
+class BatchFailure(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    batch_id = db.Column(db.Integer, db.ForeignKey('batch.id'), nullable=False)
+    phase = db.Column(db.String(50), nullable=False)
+    failure_type = db.Column(db.String(100), nullable=False)
+    count = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return f"<BatchFailure {self.phase} - {self.failure_type}: {self.count}>"
 class Mold(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     version = db.Column(db.String(50), nullable=False)
